@@ -50,7 +50,7 @@ public class CHBenCHmark extends BenchmarkModule {
 	@Override
 	protected List<Worker<? extends BenchmarkModule>> makeWorkersImpl(boolean verbose) throws IOException {
         // Drop any existing views from past benchmark executions
-        tryDropOldViews();
+        //tryDropOldViews();
 
 		// HACK: Turn off terminal messages
 		List<Worker<? extends BenchmarkModule>> workers = new ArrayList<Worker<? extends BenchmarkModule>>();
@@ -67,6 +67,7 @@ public class CHBenCHmark extends BenchmarkModule {
 		return new CHBenCHmarkLoader(this);
 	}
 
+	/*
     private void tryDropOldViews() {
         Q15 query = (Q15)ClassUtil.newInstance(Q15.class, new Object[0], new Class<?>[0]);
         Connection conn = null;
@@ -84,5 +85,6 @@ public class CHBenCHmark extends BenchmarkModule {
             }
         }
     }
+	 */
 	
 }
