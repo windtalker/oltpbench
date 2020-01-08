@@ -2,11 +2,11 @@
 <parameters>
 
 	<!-- Connection details -->
-    <dbtype>tidb</dbtype>
+    <dbtype>memsql</dbtype>
     <driver>com.mysql.jdbc.Driver</driver>
-    <DBUrl>jdbc:mysql://172.16.4.75:8023/chbenchmark</DBUrl>
+    <DBUrl>jdbc:mysql://127.0.0.1:3339/chbenchmark</DBUrl>
     <username>root</username>
-    <password></password>
+    <password>memsql</password>
     <isolation>TRANSACTION_SERIALIZABLE</isolation>
     <uploadCode></uploadCode>
     <uploadUrl></uploadUrl>
