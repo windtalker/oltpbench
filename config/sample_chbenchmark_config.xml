@@ -2,9 +2,9 @@
 <parameters>
 
 	<!-- Connection details -->
-    <dbtype>mysql</dbtype>
+    <dbtype>tidb</dbtype>
     <driver>com.mysql.jdbc.Driver</driver>
-    <DBUrl>jdbc:mysql://localhost:3306/chbenchmark</DBUrl>
+    <DBUrl>jdbc:mysql://172.16.4.75:8023/chbenchmark</DBUrl>
     <username>root</username>
     <password></password>
     <isolation>TRANSACTION_SERIALIZABLE</isolation>
@@ -12,26 +12,27 @@
     <uploadUrl></uploadUrl>
 
 	<!-- Scale factor is the number of warehouses in TPCC -->
-	<scalefactor>2</scalefactor>
+	<scalefactor>100</scalefactor>
 
 	<!-- The workload -->
 	<!-- Number of terminal per workload -->
-	<terminals>2</terminals>
+	<!-- terminals>2</terminals -->
 
 	<!-- Note: Workload-specific options are marked with @bench=[workload_name] -->
 
 	<!-- Workload-specific number of terminals -->
-	<!-- <terminals bench="chbenchmark">2</terminals> -->
-	<!-- <terminals bench="tpcc">5</terminals> -->
+	<terminals bench="chbenchmark">10</terminals> 
+	<terminals bench="tpcc">100</terminals> 
 
 	<works>
  
 	    <!-- A Basic WorkPhase for Mixed Workloads -->
 		<work>
-			<time>60</time>
+			<time>900</time>
+			<warmup>300</warmup>
 
 			<!-- Note: The rate can also be set to UNLIMITED or DISABLED -->
-			<rate>10000</rate>
+			<rate>unlimited</rate>
 
             <!-- Serial execution of the chbenchmark queries -->
             <!-- Note: Weights are interpreted differently when serial is enabled: -->

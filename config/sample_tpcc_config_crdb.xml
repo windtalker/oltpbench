@@ -2,9 +2,9 @@
 <parameters>
 	
     <!-- Connection details -->
-    <dbtype>tidb</dbtype>
-    <driver>com.mysql.jdbc.Driver</driver>
-    <DBUrl>jdbc:mysql://172.16.4.75:8023/tpcc</DBUrl>
+    <dbtype>postgres</dbtype>
+    <driver>org.postgresql.Driver</driver>
+    <DBUrl>jdbc:postgresql://172.16.4.41:26257/tpcc</DBUrl>
     <username>root</username>
     <password></password>
     <!--isolation>TRANSACTION_SERIALIZABLE</isolation-->
