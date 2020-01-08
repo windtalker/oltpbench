@@ -26,8 +26,10 @@ package com.oltpbenchmark.benchmarks.tpcc;
  */
 
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Random;
 
+import com.oltpbenchmark.types.DatabaseType;
 import org.apache.log4j.Logger;
 
 import com.oltpbenchmark.api.Procedure.UserAbortException;
@@ -54,7 +56,15 @@ public class TPCCWorker extends Worker<TPCCBenchmark> {
 			int terminalDistrictUpperID, int numWarehouses)
 			throws SQLException {
 		super(benchmarkModule, id);
-		
+		if (benchmarkModule.getWorkloadConfiguration().getDBType() == DatabaseType.TiDB) {
+			// set storage type if needed
+			if (benchmarkModule.getWorkloadConfiguration().getDBStorageType().toLowerCase().equals("tikv")) {
+				Statement stmt = conn.createStatement();
+				stmt.execute("set tidb_isolation_read_engines=\"tikv\"");
+				stmt.close();
+			}
+		}
+
 		this.terminalWarehouseID = terminalWarehouseID;
 		this.terminalDistrictLowerID = terminalDistrictLowerID;
 		this.terminalDistrictUpperID = terminalDistrictUpperID;

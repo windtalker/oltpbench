@@ -47,7 +47,8 @@ public class WorkloadConfiguration {
 	private String db_name;
 	private String db_username;
 	private String db_password;
-	private String db_driver;	
+	private String db_driver;
+	private String db_storage_type;
 	private double scaleFactor = 1.0;
 	private double selectivity = -1.0;
 	private int terminals;
@@ -106,6 +107,14 @@ public class WorkloadConfiguration {
 	
 	public String getDBConnection() {
 		return db_connection;
+	}
+
+	public void setDBStorageType(String storage_type) {
+    	this.db_storage_type = storage_type;
+	}
+
+	public String getDBStorageType() {
+    	return db_storage_type;
 	}
 	
 	public void setDBName(String dbname) {

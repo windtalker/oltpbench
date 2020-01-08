@@ -17,16 +17,30 @@
 package com.oltpbenchmark.benchmarks.chbenchmark;
 
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.oltpbenchmark.api.Procedure.UserAbortException;
 import com.oltpbenchmark.api.TransactionType;
 import com.oltpbenchmark.api.Worker;
 import com.oltpbenchmark.benchmarks.chbenchmark.queries.GenericQuery;
+import com.oltpbenchmark.types.DatabaseType;
 import com.oltpbenchmark.types.TransactionStatus;
 
 public class CHBenCHmarkWorker extends Worker<CHBenCHmark> {
-	public CHBenCHmarkWorker(CHBenCHmark benchmarkModule, int id) {
+	public CHBenCHmarkWorker(CHBenCHmark benchmarkModule, int id) throws SQLException {
 		super(benchmarkModule, id);
+		if (benchmarkModule.getWorkloadConfiguration().getDBType() == DatabaseType.TiDB) {
+			// set storage type if needed
+			if (benchmarkModule.getWorkloadConfiguration().getDBStorageType().toLowerCase().equals("tikv")) {
+				Statement stmt = conn.createStatement();
+				stmt.execute("set tidb_isolation_read_engines=\"tikv\"");
+				stmt.close();
+			} else if (benchmarkModule.getWorkloadConfiguration().getDBStorageType().toLowerCase().equals("tiflash")) {
+				Statement stmt = conn.createStatement();
+				stmt.execute("set tidb_isolation_read_engines=\"tiflash\"");
+				stmt.close();
+			}
+		}
 	}
 	
 	@Override
