@@ -80,6 +80,18 @@ public class TPCCLoader extends Loader<TPCCBenchmark> {
 			stmt.execute("analyze table " + TPCCConstants.TABLENAME_ORDERLINE);
 			stmt.execute("analyze table " + TPCCConstants.TABLENAME_STOCK);
 			stmt.execute("analyze table " + TPCCConstants.TABLENAME_WAREHOUSE);
+		} else if (workConf.getDBType() == DatabaseType.MEMSQL) {
+			Connection conn = benchmark.makeConnection();
+			Statement stmt = conn.createStatement();
+			stmt.execute("create view " + TPCCConstants.TABLENAME_CUSTOMER.toLowerCase() + " as select * from " + TPCCConstants.TABLENAME_CUSTOMER);
+			stmt.execute("create view " + TPCCConstants.TABLENAME_DISTRICT.toLowerCase() + " as select * from " + TPCCConstants.TABLENAME_DISTRICT);
+			stmt.execute("create view " + TPCCConstants.TABLENAME_HISTORY.toLowerCase() + " as select * from " + TPCCConstants.TABLENAME_HISTORY);
+			stmt.execute("create view " + TPCCConstants.TABLENAME_ITEM.toLowerCase() + " as select * from " + TPCCConstants.TABLENAME_ITEM);
+			stmt.execute("create view " + TPCCConstants.TABLENAME_NEWORDER.toLowerCase() + " as select * from " + TPCCConstants.TABLENAME_NEWORDER);
+			stmt.execute("create view " + TPCCConstants.TABLENAME_OPENORDER.toLowerCase() + " as select * from " + TPCCConstants.TABLENAME_OPENORDER);
+			stmt.execute("create view " + TPCCConstants.TABLENAME_ORDERLINE.toLowerCase() + " as select * from " + TPCCConstants.TABLENAME_ORDERLINE);
+			stmt.execute("create view " + TPCCConstants.TABLENAME_STOCK.toLowerCase() + " as select * from " + TPCCConstants.TABLENAME_STOCK);
+			stmt.execute("create view " + TPCCConstants.TABLENAME_WAREHOUSE.toLowerCase() + " as select * from " + TPCCConstants.TABLENAME_WAREHOUSE);
 		}
 	}
 
