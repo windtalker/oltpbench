@@ -25,12 +25,12 @@ import java.sql.SQLException;
 public class Q15 extends GenericQuery {
     public final SQLStmt query_stmt = new SQLStmt(
             "select su_suppkey, su_name, su_address, su_phone, total_revenue"
-                    + "from supplier, (select s_su_suppkey as supplier_no, sum(ol_amount) as total_revenue from orderline,stock where ol_i_id = s_i_id and "
-                    + "ol_supply_w_id = s_w_id and ol_delivery_d >= '2007-01-02 00:00:00.000000' group by s_su_suppkey) as revenue"
-                    + "WHERE su_suppkey = supplier_no and total_revenue = (select max(total_revenue) from "
-                    + "(select s_su_suppkey as supplier_no,sum(ol_amount) as total_revenue from orderline, stock where ol_i_id = s_i_id"
+                    + " from supplier, (select s_su_suppkey as supplier_no, sum(ol_amount) as total_revenue from orderline,stock where ol_i_id = s_i_id and "
+                    + " ol_supply_w_id = s_w_id and ol_delivery_d >= '2007-01-02 00:00:00.000000' group by s_su_suppkey) as revenue"
+                    + " WHERE su_suppkey = supplier_no and total_revenue = (select max(total_revenue) from "
+                    + " (select s_su_suppkey as supplier_no,sum(ol_amount) as total_revenue from orderline, stock where ol_i_id = s_i_id"
                     + " and ol_supply_w_id = s_w_id and ol_delivery_d >= '2007-01-02 00:00:00.000000' group by s_su_suppkey) as revenue)"
-                    +   " order by su_suppkey"
+                    + " order by su_suppkey"
     );
 
     protected SQLStmt get_query() {
