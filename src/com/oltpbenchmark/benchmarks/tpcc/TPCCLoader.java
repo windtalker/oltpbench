@@ -34,16 +34,12 @@ package com.oltpbenchmark.benchmarks.tpcc;
  *
  */
 
-import java.sql.BatchUpdateException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.sql.Types;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
+import com.oltpbenchmark.types.DatabaseType;
 import org.apache.log4j.Logger;
 
 import com.oltpbenchmark.api.Loader;
@@ -69,7 +65,24 @@ public class TPCCLoader extends Loader<TPCCBenchmark> {
     
     private int numWarehouses = 0;
     private static final int FIRST_UNPROCESSED_O_ID = 2101;
-    
+
+    @Override
+	public void postLoadDatabase() throws SQLException {
+    	if (workConf.getDBType() == DatabaseType.TiDB) {
+			Connection conn = benchmark.makeConnection();
+			Statement stmt = conn.createStatement();
+			stmt.execute("analyze table " + TPCCConstants.TABLENAME_CUSTOMER);
+			stmt.execute("analyze table " + TPCCConstants.TABLENAME_DISTRICT);
+			stmt.execute("analyze table " + TPCCConstants.TABLENAME_HISTORY);
+			stmt.execute("analyze table " + TPCCConstants.TABLENAME_ITEM);
+			stmt.execute("analyze table " + TPCCConstants.TABLENAME_NEWORDER);
+			stmt.execute("analyze table " + TPCCConstants.TABLENAME_OPENORDER);
+			stmt.execute("analyze table " + TPCCConstants.TABLENAME_ORDERLINE);
+			stmt.execute("analyze table " + TPCCConstants.TABLENAME_STOCK);
+			stmt.execute("analyze table " + TPCCConstants.TABLENAME_WAREHOUSE);
+		}
+	}
+
     @Override
     public List<LoaderThread> createLoaderThreads() throws SQLException {
         List<LoaderThread> threads = new ArrayList<LoaderThread>();

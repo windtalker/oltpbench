@@ -121,6 +121,9 @@ public abstract class Loader<T extends BenchmarkModule> {
         return (this.workConf.getDBType());
     }
 
+    public void postLoadDatabase() throws SQLException {
+    }
+
     /**
      * Return the database's catalog
      */

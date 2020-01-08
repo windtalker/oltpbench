@@ -25,11 +25,13 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import com.oltpbenchmark.types.DatabaseType;
 import org.apache.log4j.Logger;
 
 import com.oltpbenchmark.api.Loader;
@@ -67,7 +69,18 @@ public class CHBenCHmarkLoader extends Loader<CHBenCHmark> {
 	public CHBenCHmarkLoader(CHBenCHmark benchmark) {
 		super(benchmark);
 	}
-	
+
+	@Override
+	public void postLoadDatabase() throws SQLException {
+		if (workConf.getDBType() == DatabaseType.TiDB) {
+			Connection conn = benchmark.makeConnection();
+			Statement stmt = conn.createStatement();
+			stmt.execute("analyze table region");
+			stmt.execute("analyze table nation");
+			stmt.execute("analyze table supplier");
+		}
+	}
+
 	@Override
 	public List<LoaderThread> createLoaderThreads() throws SQLException {
 		List<LoaderThread> threads = new ArrayList<LoaderThread>();
