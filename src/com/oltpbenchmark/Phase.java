@@ -93,7 +93,7 @@ public class Phase {
             }
             this.startSerials = Collections.unmodifiableList(starts);
             this.nextSerials = new ArrayList<Integer>(this.startSerials);
-            LOG.debug(String.format("Reset serial exec starting queries for %d terminals to: %s", this.activeTerminals,
+            LOG.info(String.format("Reset serial exec starting queries for %d terminals to: %s", this.activeTerminals,
                     StringUtil.join(", ", this.startSerials)));
         } else {
             this.startSerials = null;
