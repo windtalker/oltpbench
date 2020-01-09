@@ -31,15 +31,15 @@ public class CHBenCHmarkWorker extends Worker<CHBenCHmark> {
 		super(benchmarkModule, id);
 		if (benchmarkModule.getWorkloadConfiguration().getDBType() == DatabaseType.TiDB) {
 			// set storage type if needed
+			Statement stmt = conn.createStatement();
+			stmt.execute("set @@global.tidb_txn_mode='optimistic'");
+			stmt.execute("set @@global.tidb_skip_isolation_level_check=1");
 			if (benchmarkModule.getWorkloadConfiguration().getDBStorageType().toLowerCase().equals("tikv")) {
-				Statement stmt = conn.createStatement();
 				stmt.execute("set tidb_isolation_read_engines=\"tikv\"");
-				stmt.close();
 			} else if (benchmarkModule.getWorkloadConfiguration().getDBStorageType().toLowerCase().equals("tiflash")) {
-				Statement stmt = conn.createStatement();
 				stmt.execute("set tidb_isolation_read_engines=\"tiflash\"");
-				stmt.close();
 			}
+			stmt.close();
 		}
 	}
 	

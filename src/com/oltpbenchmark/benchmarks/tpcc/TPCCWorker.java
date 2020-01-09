@@ -57,12 +57,14 @@ public class TPCCWorker extends Worker<TPCCBenchmark> {
 			throws SQLException {
 		super(benchmarkModule, id);
 		if (benchmarkModule.getWorkloadConfiguration().getDBType() == DatabaseType.TiDB) {
+			Statement stmt = conn.createStatement();
+			stmt.execute("set @@global.tidb_txn_mode='optimistic'");
+			stmt.execute("set @@global.tidb_skip_isolation_level_check=1");
 			// set storage type if needed
 			if (benchmarkModule.getWorkloadConfiguration().getDBStorageType().toLowerCase().equals("tikv")) {
-				Statement stmt = conn.createStatement();
 				stmt.execute("set tidb_isolation_read_engines=\"tikv\"");
-				stmt.close();
 			}
+			stmt.close();
 		}
 
 		this.terminalWarehouseID = terminalWarehouseID;
