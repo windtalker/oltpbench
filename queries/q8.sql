@@ -1,6 +1,6 @@
 
-SELECT extract(YEAR 
-FROM o_entry_d) AS l_year, 
+SELECT YEAR 
+(o_entry_d) AS l_year, 
 sum(CASE WHEN n2.n_name = 'Germany' THEN ol_amount ELSE 0 END) / sum(ol_amount) AS mkt_share 
 FROM item, 
 supplier, 
@@ -21,7 +21,7 @@ AND ol_o_id = o_id
 AND c_id = o_c_id 
 AND c_w_id = o_w_id 
 AND c_d_id = o_d_id 
-AND n1.n_nationkey = ascii(substring(c_state from  1  for  1)) 
+AND n1.n_nationkey = ascii(substring(c_state ,1 ,1)) 
 AND n1.n_regionkey = r_regionkey 
 AND ol_i_id < 1000 
 AND r_name = 'Europe' 

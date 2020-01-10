@@ -1,8 +1,7 @@
 
 SELECT su_nationkey AS supp_nation, 
-substring(c_state from 1 for 1) AS cust_nation, 
-extract(YEAR 
-FROM o_entry_d) AS l_year, 
+substring(c_state ,1 ,1) AS cust_nation, 
+year(o_entry_d) AS l_year, 
 sum(ol_amount) AS revenue 
 FROM supplier, 
 stock, 
@@ -21,7 +20,7 @@ AND c_id = o_c_id
 AND c_w_id = o_w_id 
 AND c_d_id = o_d_id 
 AND su_nationkey = n1.n_nationkey 
-AND ascii(substring(c_state from  1  for  1)) = n2.n_nationkey 
+AND ascii(substring(c_state ,1  ,1)) = n2.n_nationkey 
 AND ((n1.n_name = 'Germany' 
 AND n2.n_name = 'Cambodia') 
 OR (n1.n_name = 'Cambodia' 

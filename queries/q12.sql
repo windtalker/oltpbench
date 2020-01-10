@@ -9,7 +9,7 @@ WHERE ol_w_id = o_w_id
 AND ol_d_id = o_d_id 
 AND ol_o_id = o_id 
 AND o_entry_d <= ol_delivery_d 
-AND ol_delivery_d < '2020-01-01 00:00:00.000000' 
+AND ol_delivery_d < timestamp'2020-01-01 00:00:00.000000' 
 GROUP BY o_ol_cnt 
 ORDER BY o_ol_cnt
 

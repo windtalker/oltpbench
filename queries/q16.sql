@@ -1,5 +1,5 @@
 SELECT i_name, 
-substring(i_data from  1 for 3) AS brand, 
+substring(i_data ,1 ,3) AS brand, 
 i_price, 
 count(DISTINCT (mod((s_w_id * s_i_id),10000))) AS supplier_cnt 
 FROM stock, 

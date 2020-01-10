@@ -17,6 +17,7 @@
 package com.oltpbenchmark.benchmarks.chbenchmark.queries;
 
 import com.oltpbenchmark.api.SQLStmt;
+import com.oltpbenchmark.types.DatabaseType;
 
 public class Q6 extends GenericQuery {
 	
@@ -27,8 +28,18 @@ public class Q6 extends GenericQuery {
             +   "AND ol_delivery_d < '2020-01-01 00:00:00.000000' "
             +   "AND ol_quantity BETWEEN 1 AND 100000"
         );
-	
-		protected SQLStmt get_query() {
+
+	public final SQLStmt tidb_query_stmt = new SQLStmt(
+			"SELECT sum(ol_amount) AS revenue "
+					+ "FROM order_line "
+					+ "WHERE ol_delivery_d >= timestamp'1999-01-01 00:00:00.000000' "
+					+   "AND ol_delivery_d < timestamp'2020-01-01 00:00:00.000000' "
+					+   "AND ol_quantity BETWEEN 1 AND 100000"
+	);
+
+		protected SQLStmt get_query(DatabaseType dbType) {
+			if (dbType == DatabaseType.TiSPARK)
+				return tidb_query_stmt;
 	    return query_stmt;
 	}
 }

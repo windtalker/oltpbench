@@ -18,7 +18,7 @@ AND no_o_id = o_id
 AND ol_w_id = o_w_id 
 AND ol_d_id = o_d_id 
 AND ol_o_id = o_id 
-AND o_entry_d > '2007-01-02 00:00:00.000000' 
+AND o_entry_d > timestamp'2007-01-02 00:00:00.000000' 
 GROUP BY ol_o_id, 
 ol_w_id,
 ol_d_id, 

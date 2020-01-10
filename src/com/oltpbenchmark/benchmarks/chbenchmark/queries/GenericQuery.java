@@ -24,6 +24,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.oltpbenchmark.types.DatabaseType;
 import org.apache.log4j.Logger;
 
 import com.oltpbenchmark.DBWorkload;
@@ -62,12 +63,12 @@ public abstract class GenericQuery extends Procedure {
 		return new SQLStmt(query.toString());
 	}
 	
-	protected abstract SQLStmt get_query();
+	protected abstract SQLStmt get_query(DatabaseType dbType);
     
     public ResultSet run(Connection conn) throws SQLException {
 		
 		//initializing all prepared statements
-    	stmt=this.getPreparedStatement(conn, get_query());
+    	stmt=this.getPreparedStatement(conn, get_query(owner.getWorkloadConfiguration().getDBType()));
         if (owner != null)
             owner.setCurrStatement(stmt);
 

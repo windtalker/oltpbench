@@ -17,6 +17,7 @@
 package com.oltpbenchmark.benchmarks.chbenchmark.queries;
 
 import com.oltpbenchmark.api.SQLStmt;
+import com.oltpbenchmark.types.DatabaseType;
 
 public class Q2 extends GenericQuery {
 	
@@ -53,7 +54,7 @@ public class Q2 extends GenericQuery {
             +          "i_id"
         );
 	
-		protected SQLStmt get_query() {
+		protected SQLStmt get_query(DatabaseType dbType) {
 	    return query_stmt;
 	}
 }

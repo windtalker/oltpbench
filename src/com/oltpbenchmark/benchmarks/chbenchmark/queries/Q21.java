@@ -17,6 +17,7 @@
 package com.oltpbenchmark.benchmarks.chbenchmark.queries;
 
 import com.oltpbenchmark.api.SQLStmt;
+import com.oltpbenchmark.types.DatabaseType;
 
 public class Q21 extends GenericQuery {
 	
@@ -48,7 +49,7 @@ public class Q21 extends GenericQuery {
             + "ORDER BY numwait DESC, su_name"
         );
 	
-		protected SQLStmt get_query() {
+		protected SQLStmt get_query(DatabaseType dbType) {
 	    return query_stmt;
 	}
 }

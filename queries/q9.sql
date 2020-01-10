@@ -1,7 +1,7 @@
 
 SELECT n_name, 
-extract(YEAR 
-FROM o_entry_d) AS l_year, 
+YEAR 
+(o_entry_d) AS l_year, 
 sum(ol_amount) AS sum_profit 
 FROM item, 
 stock, 

@@ -17,6 +17,7 @@
 package com.oltpbenchmark.benchmarks.chbenchmark.queries;
 
 import com.oltpbenchmark.api.SQLStmt;
+import com.oltpbenchmark.types.DatabaseType;
 
 public class Q14 extends GenericQuery {
 	
@@ -28,8 +29,19 @@ public class Q14 extends GenericQuery {
             +   "AND ol_delivery_d >= '2007-01-02 00:00:00.000000' "
             +   "AND ol_delivery_d < '2020-01-02 00:00:00.000000'"
         );
-	
-		protected SQLStmt get_query() {
+
+	public final SQLStmt tidb_query_stmt = new SQLStmt(
+			"SELECT (100.00 * sum(CASE WHEN i_data LIKE 'PR%' THEN ol_amount ELSE 0 END) / (1 + sum(ol_amount))) AS promo_revenue "
+					+ "FROM order_line, "
+					+      "item "
+					+ "WHERE ol_i_id = i_id "
+					+   "AND ol_delivery_d >= timestamp'2007-01-02 00:00:00.000000' "
+					+   "AND ol_delivery_d < timestamp'2020-01-02 00:00:00.000000'"
+	);
+
+		protected SQLStmt get_query(DatabaseType dbType) {
+			if (dbType == DatabaseType.TiSPARK)
+				return tidb_query_stmt;
 	    return query_stmt;
 	}
 }

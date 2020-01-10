@@ -17,6 +17,8 @@
 package com.oltpbenchmark.benchmarks.chbenchmark.queries;
 
 import com.oltpbenchmark.api.SQLStmt;
+import com.oltpbenchmark.types.DatabaseType;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -32,8 +34,19 @@ public class Q15 extends GenericQuery {
                     + " and ol_supply_w_id = s_w_id and ol_delivery_d >= '2007-01-02 00:00:00.000000' group by supplier_no) as revenue)"
                     + " order by su_suppkey"
     );
+    public final SQLStmt tidb_query_stmt = new SQLStmt(
+            "select su_suppkey, su_name, su_address, su_phone, total_revenue"
+                    + " from supplier, (select mod((s_w_id * s_i_id),10000) as supplier_no, sum(ol_amount) as total_revenue from order_line,stock where ol_i_id = s_i_id and "
+                    + " ol_supply_w_id = s_w_id and ol_delivery_d >= timestamp'2007-01-02 00:00:00.000000' group by supplier_no) as revenue"
+                    + " WHERE su_suppkey = supplier_no and total_revenue = (select max(total_revenue) from "
+                    + " (select mod((s_w_id * s_i_id),10000) as supplier_no,sum(ol_amount) as total_revenue from order_line, stock where ol_i_id = s_i_id"
+                    + " and ol_supply_w_id = s_w_id and ol_delivery_d >= timestamp'2007-01-02 00:00:00.000000' group by supplier_no) as revenue)"
+                    + " order by su_suppkey"
+    );
 
-    protected SQLStmt get_query() {
+    protected SQLStmt get_query(DatabaseType dbType) {
+        if (dbType == DatabaseType.TiSPARK)
+            return tidb_query_stmt;
         return query_stmt;
     }
 }
