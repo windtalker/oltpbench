@@ -37,6 +37,7 @@ public enum DatabaseType {
     DB2("com.ibm.db2.jcc.DB2Driver", true, false, true),
     MYSQL("com.mysql.jdbc.Driver", true, false, true),
     TiDB("com.mysql.jdbc.Driver", true, false, true),
+    TiKV("com.mysql.jdbc.Driver", true, false, true),
     TiSPARK("org.apache.hive.jdbc.HiveDriver", true, false, false),
     MYROCKS("com.mysql.jdbc.Driver", true, false, true),
     POSTGRES("org.postgresql.Driver", false, false, true),
