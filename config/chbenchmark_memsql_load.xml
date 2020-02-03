@@ -4,7 +4,7 @@
 	<!-- Connection details -->
     <dbtype>memsql</dbtype>
     <driver>com.mysql.jdbc.Driver</driver>
-    <DBUrl>jdbc:mysql://127.0.0.1:3339/chbenchmark</DBUrl>
+    <DBUrl>jdbc:mysql://127.0.0.1:3339/chbenchmark_wd10</DBUrl>
     <username>root</username>
     <password>memsql</password>
     <isolation>TRANSACTION_SERIALIZABLE</isolation>
@@ -12,7 +12,7 @@
     <uploadUrl></uploadUrl>
 
 	<!-- Scale factor is the number of warehouses in TPCC -->
-	<scalefactor>100</scalefactor>
+	<scalefactor>10</scalefactor>
 
 	<!-- The workload -->
 	<!-- Number of terminal per workload -->
@@ -21,15 +21,15 @@
 	<!-- Note: Workload-specific options are marked with @bench=[workload_name] -->
 
 	<!-- Workload-specific number of terminals -->
-	<terminals bench="chbenchmark">10</terminals> 
+	<terminals bench="chbenchmark">5</terminals> 
 	<terminals bench="tpcc">10</terminals> 
 
 	<works>
  
 	    <!-- A Basic WorkPhase for Mixed Workloads -->
 		<work>
-			<time>600</time>
-			<warmup>180</warmup>
+			<time>900</time>
+			<warmup>300</warmup>
 
 			<!-- Note: The rate can also be set to UNLIMITED or DISABLED -->
 			<rate>unlimited</rate>

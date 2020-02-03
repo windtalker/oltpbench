@@ -3,9 +3,9 @@
 
 	<!-- Connection details -->
     <dbtype>tidb</dbtype>
-    <storageType>tiflash</storageType>
+    <storageType>tikv</storageType>
     <driver>com.mysql.jdbc.Driver</driver>
-    <DBUrl>jdbc:mysql://172.16.4.75:8023/chbenchmark</DBUrl>
+    <DBUrl>jdbc:mysql://172.16.4.41:8024/chbenchmark</DBUrl>
     <username>root</username>
     <password></password>
     <isolation>TRANSACTION_SERIALIZABLE</isolation>
@@ -23,14 +23,14 @@
 
 	<!-- Workload-specific number of terminals -->
 	<terminals bench="chbenchmark">5</terminals> 
-	<terminals bench="tpcc">10</terminals> 
+	<terminals bench="tpcc">100</terminals> 
 
 	<works>
  
 	    <!-- A Basic WorkPhase for Mixed Workloads -->
 		<work>
-			<time>300</time>
-			<warmup>30</warmup>
+			<time>900</time>
+			<warmup>300</warmup>
 
 			<!-- Note: The rate can also be set to UNLIMITED or DISABLED -->
 			<rate>unlimited</rate>

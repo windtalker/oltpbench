@@ -2,11 +2,12 @@
 <parameters>
 
 	<!-- Connection details -->
-    <dbtype>memsql</dbtype>
-    <driver>com.mysql.jdbc.Driver</driver>
-    <DBUrl>jdbc:mysql://127.0.0.1:3339/chbenchmark</DBUrl>
-    <username>root</username>
-    <password>memsql</password>
+    <dbtype>tispark</dbtype>
+    <driver>org.apache.hive.jdbc.HiveDriver</driver>
+    <DBUrl>jdbc:hive2://172.16.4.75:10500/chbenchmark</DBUrl>
+    <!--DBUrl>jdbc:mysql://172.16.4.75:4000/chbenchmark</DBUrl-->
+    <username></username>
+    <password></password>
     <isolation>TRANSACTION_SERIALIZABLE</isolation>
     <uploadCode></uploadCode>
     <uploadUrl></uploadUrl>
@@ -21,8 +22,8 @@
 	<!-- Note: Workload-specific options are marked with @bench=[workload_name] -->
 
 	<!-- Workload-specific number of terminals -->
-	<terminals bench="chbenchmark">10</terminals> 
-	<terminals bench="tpcc">10</terminals> 
+	<terminals bench="chbenchmark">16</terminals> 
+	<terminals bench="tpcc">1</terminals> 
 
 	<works>
  
