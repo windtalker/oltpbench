@@ -22,18 +22,29 @@ import com.oltpbenchmark.types.DatabaseType;
 public class Q4 extends GenericQuery {
 	
     public final SQLStmt query_stmt = new SQLStmt(
-              "SELECT o_ol_cnt, "
-            +        "count(*) AS order_count "
-            + "FROM oorder "
-            + "WHERE exists "
-            +     "(SELECT * "
-            +      "FROM order_line "
-            +      "WHERE o_id = ol_o_id "
-            +        "AND o_w_id = ol_w_id "
-            +        "AND o_d_id = ol_d_id "
-            +        "AND ol_delivery_d >= o_entry_d) "
-            + "GROUP BY o_ol_cnt "
-            + "ORDER BY o_ol_cnt"
+            "SELECT c_id,\n" +
+					"c_last,\n" +
+					"sum(ol_amount) AS revenue,\n" +
+					"c_city,\n" +
+					"c_phone\n" +
+					"FROM bmsql_customer,\n" +
+					"bmsql_oorder,\n" +
+					"bmsql_order_line\n" +
+					"WHERE c_id = o_c_id\n" +
+					"AND c_w_id = o_w_id\n" +
+					"AND c_d_id = o_d_id\n" +
+					"AND ol_w_id = o_w_id\n" +
+					"AND ol_d_id = o_d_id\n" +
+					"AND ol_o_id = o_id\n" +
+					"AND o_entry_d >= timestamp'2007-01-02 00:00:00.000000'\n" +
+					"AND o_entry_d <= ol_delivery_d\n" +
+					"AND c_state LIKE 'A%'\n" +
+					"GROUP BY c_id,\n" +
+					"c_last,\n" +
+					"c_city,\n" +
+					"c_phone\n" +
+					"ORDER BY revenue DESC\n" +
+					"limit 100"
         );
 	
 		protected SQLStmt get_query(DatabaseType dbType) {

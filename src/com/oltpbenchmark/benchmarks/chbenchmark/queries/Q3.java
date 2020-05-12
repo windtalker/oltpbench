@@ -22,31 +22,11 @@ import com.oltpbenchmark.types.DatabaseType;
 public class Q3 extends GenericQuery {
 	
     public final SQLStmt query_stmt = new SQLStmt(
-              "SELECT ol_o_id, "
-            +        "ol_w_id, "
-            +        "ol_d_id, "
-            +        "sum(ol_amount) AS revenue, "
-            +        "o_entry_d "
-            + "FROM customer, "
-            +      "new_order, "
-            +      "oorder, "
-            +      "order_line "
-            + "WHERE c_state LIKE 'A%' "
-            +   "AND c_id = o_c_id "
-            +   "AND c_w_id = o_w_id "
-            +   "AND c_d_id = o_d_id "
-            +   "AND no_w_id = o_w_id "
-            +   "AND no_d_id = o_d_id "
-            +   "AND no_o_id = o_id "
-            +   "AND ol_w_id = o_w_id "
-            +   "AND ol_d_id = o_d_id "
-            +   "AND ol_o_id = o_id "
-            +   "AND o_entry_d > '2007-01-02 00:00:00.000000' "
-            + "GROUP BY ol_o_id, "
-            +          "ol_w_id, "
-            +          "ol_d_id, "
-            +          "o_entry_d "
-            + "ORDER BY revenue DESC , o_entry_d"
+            "SELECT sum(ol_amount) AS revenue\n" +
+					"FROM bmsql_order_line\n" +
+					"WHERE ol_delivery_d >= timestamp'1999-01-01 00:00:00.000000'\n" +
+					"AND ol_delivery_d < timestamp'2020-01-01 00:00:00.000000'\n" +
+					"AND ol_quantity BETWEEN 1 AND 100000"
         );
 
 	public final SQLStmt tidb_query_stmt = new SQLStmt(

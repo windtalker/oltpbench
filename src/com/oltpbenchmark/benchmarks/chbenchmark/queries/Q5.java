@@ -22,59 +22,37 @@ import com.oltpbenchmark.types.DatabaseType;
 public class Q5 extends GenericQuery {
 	
     public final SQLStmt query_stmt = new SQLStmt(
-              "SELECT n_name, "
-            +        "sum(ol_amount) AS revenue "
-            + "FROM customer, "
-            +      "oorder, "
-            +      "order_line, "
-            +      "stock, "
-            +      "supplier, "
-            +      "nation, "
-            +      "region "
-            + "WHERE c_id = o_c_id "
-            +   "AND c_w_id = o_w_id "
-            +   "AND c_d_id = o_d_id "
-            +   "AND ol_o_id = o_id "
-            +   "AND ol_w_id = o_w_id "
-            +   "AND ol_d_id=o_d_id "
-            +   "AND ol_w_id = s_w_id "
-            +   "AND ol_i_id = s_i_id "
-            +   "AND MOD((s_w_id * s_i_id), 10000) = su_suppkey "
-            +   "AND ascii(substring(c_state from  1  for  1)) = su_nationkey "
-            +   "AND su_nationkey = n_nationkey "
-            +   "AND n_regionkey = r_regionkey "
-            +   "AND r_name = 'Europe' "
-            +   "AND o_entry_d >= '2007-01-02 00:00:00.000000' "
-            + "GROUP BY n_name "
-            + "ORDER BY revenue DESC"
+			"SELECT o_ol_cnt,\n" +
+					"sum(CASE WHEN o_carrier_id = 1\n" +
+					"OR o_carrier_id = 2 THEN 1 ELSE 0 END) AS high_line_count,\n" +
+					"sum(CASE WHEN o_carrier_id <> 1\n" +
+					"AND o_carrier_id <> 2 THEN 1 ELSE 0 END) AS low_line_count\n" +
+					"FROM bmsql_oorder,\n" +
+					"bmsql_order_line\n" +
+					"WHERE ol_w_id = o_w_id\n" +
+					"AND ol_d_id = o_d_id\n" +
+					"AND ol_o_id = o_id\n" +
+					"AND o_entry_d <= ol_delivery_d\n" +
+					"AND ol_delivery_d < timestamp'2020-01-01 00:00:00.000000'\n" +
+					"GROUP BY o_ol_cnt\n" +
+					"ORDER BY o_ol_cnt"
         );
 
 	public final SQLStmt tidb_query_stmt = new SQLStmt(
-			"SELECT n_name, "
-					+        "sum(ol_amount) AS revenue "
-					+ "FROM customer, "
-					+      "oorder, "
-					+      "order_line, "
-					+      "stock, "
-					+      "supplier, "
-					+      "nation, "
-					+      "region "
-					+ "WHERE c_id = o_c_id "
-					+   "AND c_w_id = o_w_id "
-					+   "AND c_d_id = o_d_id "
-					+   "AND ol_o_id = o_id "
-					+   "AND ol_w_id = o_w_id "
-					+   "AND ol_d_id=o_d_id "
-					+   "AND ol_w_id = s_w_id "
-					+   "AND ol_i_id = s_i_id "
-					+   "AND MOD((s_w_id * s_i_id), 10000) = su_suppkey "
-					+   "AND ascii(substring(c_state ,1  ,1)) = su_nationkey "
-					+   "AND su_nationkey = n_nationkey "
-					+   "AND n_regionkey = r_regionkey "
-					+   "AND r_name = 'Europe' "
-					+   "AND o_entry_d >= timestamp'2007-01-02 00:00:00.000000' "
-					+ "GROUP BY n_name "
-					+ "ORDER BY revenue DESC"
+	        "SELECT o_ol_cnt,\n" +
+					"sum(CASE WHEN o_carrier_id = 1\n" +
+					"OR o_carrier_id = 2 THEN 1 ELSE 0 END) AS high_line_count,\n" +
+					"sum(CASE WHEN o_carrier_id <> 1\n" +
+					"AND o_carrier_id <> 2 THEN 1 ELSE 0 END) AS low_line_count\n" +
+					"FROM oorder,\n" +
+					"order_line\n" +
+					"WHERE ol_w_id = o_w_id\n" +
+					"AND ol_d_id = o_d_id\n" +
+					"AND ol_o_id = o_id\n" +
+					"AND o_entry_d <= ol_delivery_d\n" +
+					"AND ol_delivery_d < timestamp'2020-01-01 00:00:00.000000'\n" +
+					"GROUP BY o_ol_cnt\n" +
+					"ORDER BY o_ol_cnt"
 	);
 		protected SQLStmt get_query(DatabaseType dbType) {
 			if (dbType == DatabaseType.TiSPARK)

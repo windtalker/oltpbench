@@ -22,36 +22,31 @@ import com.oltpbenchmark.types.DatabaseType;
 public class Q2 extends GenericQuery {
 	
     public final SQLStmt query_stmt = new SQLStmt(
-              "SELECT su_suppkey, "
-            +        "su_name, "
-            +        "n_name, "
-            +        "i_id, "
-            +        "i_name, "
-            +        "su_address, "
-            +        "su_phone, "
-            +        "su_comment "
-            + "FROM item, supplier, stock, nation, region, "
-            +   "(SELECT s_i_id AS m_i_id, MIN(s_quantity) AS m_s_quantity "
-            +    "FROM stock, "
-            +         "supplier, "
-            +         "nation, "
-            +         "region "
-            +    "WHERE MOD((s_w_id*s_i_id), 10000)=su_suppkey "
-            +      "AND su_nationkey=n_nationkey "
-            +      "AND n_regionkey=r_regionkey "
-            +      "AND r_name LIKE 'Europ%' "
-            +    "GROUP BY s_i_id) m "
-            + "WHERE i_id = s_i_id "
-            +   "AND MOD((s_w_id * s_i_id), 10000) = su_suppkey "
-            +   "AND su_nationkey = n_nationkey "
-            +   "AND n_regionkey = r_regionkey "
-            +   "AND i_data LIKE '%b' "
-            +   "AND r_name LIKE 'Europ%' "
-            +   "AND i_id=m_i_id "
-            +   "AND s_quantity = m_s_quantity "
-            + "ORDER BY n_name, "
-            +          "su_name, "
-            +          "i_id"
+            "SELECT ol_o_id,\n" +
+					"ol_w_id,\n" +
+					"ol_d_id,\n" +
+					"sum(ol_amount) AS revenue,\n" +
+					"o_entry_d\n" +
+					"FROM bmsql_customer,\n" +
+					"bmsql_new_order,\n" +
+					"bmsql_oorder,\n" +
+					"bmsql_order_line\n" +
+					"WHERE c_state LIKE 'A%'\n" +
+					"AND c_id = o_c_id\n" +
+					"AND c_w_id = o_w_id\n" +
+					"AND c_d_id = o_d_id\n" +
+					"AND no_w_id = o_w_id\n" +
+					"AND no_d_id = o_d_id\n" +
+					"AND no_o_id = o_id\n" +
+					"AND ol_w_id = o_w_id\n" +
+					"AND ol_d_id = o_d_id\n" +
+					"AND ol_o_id = o_id\n" +
+					"AND o_entry_d > timestamp'2007-01-02 00:00:00.000000'\n" +
+					"GROUP BY ol_o_id,\n" +
+					"ol_w_id,\n" +
+					"ol_d_id,\n" +
+					"o_entry_d\n" +
+					"ORDER BY revenue DESC , o_entry_d"
         );
 	
 		protected SQLStmt get_query(DatabaseType dbType) {

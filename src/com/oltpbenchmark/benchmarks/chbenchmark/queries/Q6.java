@@ -22,11 +22,12 @@ import com.oltpbenchmark.types.DatabaseType;
 public class Q6 extends GenericQuery {
 	
     public final SQLStmt query_stmt = new SQLStmt(
-              "SELECT sum(ol_amount) AS revenue "
-            + "FROM order_line "
-            + "WHERE ol_delivery_d >= '1999-01-01 00:00:00.000000' "
-            +   "AND ol_delivery_d < '2020-01-01 00:00:00.000000' "
-            +   "AND ol_quantity BETWEEN 1 AND 100000"
+            "SELECT (100.00 * sum(CASE WHEN i_data LIKE 'PR%' THEN ol_amount ELSE 0 END) / (1 + sum(ol_amount))) AS promo_revenue\n" +
+					"FROM bmsql_order_line,\n" +
+					"bmsql_item\n" +
+					"WHERE ol_i_id = i_id\n" +
+					"AND ol_delivery_d >= timestamp'2007-01-02 00:00:00.000000'\n" +
+					"AND ol_delivery_d < timestamp'2020-01-02 00:00:00.000000'"
         );
 
 	public final SQLStmt tidb_query_stmt = new SQLStmt(

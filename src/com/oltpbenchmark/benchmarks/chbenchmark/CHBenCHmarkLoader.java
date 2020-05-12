@@ -72,19 +72,20 @@ public class CHBenCHmarkLoader extends Loader<CHBenCHmark> {
 
 	@Override
 	public void postLoadDatabase() throws SQLException {
-		if (workConf.getDBType() == DatabaseType.TiDB) {
-			Connection conn = benchmark.makeConnection();
-			Statement stmt = conn.createStatement();
-			stmt.execute("analyze table region");
-			stmt.execute("analyze table nation");
-			stmt.execute("analyze table supplier");
-		}
+		//if (workConf.getDBType() == DatabaseType.TiDB) {
+		//	Connection conn = benchmark.makeConnection();
+		//	Statement stmt = conn.createStatement();
+		//	stmt.execute("analyze table region");
+		//	stmt.execute("analyze table nation");
+		//	stmt.execute("analyze table supplier");
+		//}
 	}
 
 	@Override
 	public List<LoaderThread> createLoaderThreads() throws SQLException {
 		List<LoaderThread> threads = new ArrayList<LoaderThread>();
 
+		/*
 		threads.add(new LoaderThread() {
 			@Override
 			public void load(Connection conn) throws SQLException {
@@ -104,19 +105,20 @@ public class CHBenCHmarkLoader extends Loader<CHBenCHmark> {
 				conn.commit();
 			}
 		});
+		*/
 		return (threads);
 	}
 	
    static void truncateTable(Connection conn, String strTable) throws SQLException {
 
-        LOG.debug("Truncating '" + strTable + "' ...");
-        try {
-            conn.createStatement().execute("DELETE FROM " + strTable);
-            conn.commit();
-        } catch (SQLException se) {
-            LOG.debug(se.getMessage());
-            conn.rollback();
-        }
+        //LOG.debug("Truncating '" + strTable + "' ...");
+        //try {
+        //    conn.createStatement().execute("DELETE FROM " + strTable);
+        //    conn.commit();
+        //} catch (SQLException se) {
+        //    LOG.debug(se.getMessage());
+        //    conn.rollback();
+       // }
    }
 	
 	static int loadRegions(Connection conn) throws SQLException {
@@ -366,14 +368,14 @@ public class CHBenCHmarkLoader extends Loader<CHBenCHmark> {
 
 	protected long loadHelper(Connection conn) {
 		long totalRows = 0;
-		try {
-			totalRows += loadRegions(conn);
-			totalRows += loadNations(conn);
-			totalRows += loadSuppliers(conn);
-		}
-		catch (SQLException e) {
-			LOG.debug(e.getMessage());
-		}
+		//try {
+		//	totalRows += loadRegions(conn);
+		//	totalRows += loadNations(conn);
+		//	totalRows += loadSuppliers(conn);
+		//}
+		//catch (SQLException e) {
+		//	LOG.debug(e.getMessage());
+		//}
 		return totalRows;
 	}	
 	
