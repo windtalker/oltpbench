@@ -20,7 +20,8 @@ import com.oltpbenchmark.api.SQLStmt;
 import com.oltpbenchmark.types.DatabaseType;
 
 public class Q9 extends GenericQuery {
-	
+
+	public int get_query_index() { return 9;}
     public final SQLStmt query_stmt = new SQLStmt(
               "SELECT n_name, "
             +        "extract(YEAR "

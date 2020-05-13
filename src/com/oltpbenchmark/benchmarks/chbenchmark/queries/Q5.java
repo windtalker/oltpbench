@@ -20,7 +20,8 @@ import com.oltpbenchmark.api.SQLStmt;
 import com.oltpbenchmark.types.DatabaseType;
 
 public class Q5 extends GenericQuery {
-	
+
+	public int get_query_index() { return 5;}
     public final SQLStmt query_stmt = new SQLStmt(
 			"SELECT o_ol_cnt,\n" +
 					"sum(CASE WHEN o_carrier_id = 1\n" +
@@ -35,7 +36,7 @@ public class Q5 extends GenericQuery {
 					"AND o_entry_d = ol_delivery_d\n" +
 					"AND ol_delivery_d < timestamp'2020-05-12 04:00:00'\n" +
 					"GROUP BY o_ol_cnt\n" +
-					"ORDER BY o_ol_cnt"
+					"ORDER BY o_ol_cnt limit 100"
         );
 
 	public final SQLStmt tidb_query_stmt = new SQLStmt(

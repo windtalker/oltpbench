@@ -22,15 +22,16 @@ import com.oltpbenchmark.types.DatabaseType;
 public class Q2 extends GenericQuery {
 	
     public final SQLStmt query_stmt = new SQLStmt(
-            "SELECT ol_o_id,\n" +
+            "SELECT /*+ tidb_bcj(bmsql_customer,bmsql_new_order,bmsql_oorder,bmsql_order_line) */ ol_o_id,\n" +
 					"ol_w_id,\n" +
 					"ol_d_id,\n" +
 					"sum(ol_amount) AS revenue,\n" +
 					"o_entry_d\n" +
-					"FROM bmsql_customer,\n" +
-					"bmsql_new_order,\n" +
+					"FROM\n" +
+					"bmsql_order_line,\n" +
 					"bmsql_oorder,\n" +
-					"bmsql_order_line\n" +
+					"bmsql_customer,\n" +
+					"bmsql_new_order\n" +
 					"WHERE c_state LIKE 'A%'\n" +
 					"AND c_id = o_c_id\n" +
 					"AND c_w_id = o_w_id\n" +
@@ -46,10 +47,11 @@ public class Q2 extends GenericQuery {
 					"ol_w_id,\n" +
 					"ol_d_id,\n" +
 					"o_entry_d\n" +
-					"ORDER BY revenue DESC , o_entry_d"
+					"ORDER BY revenue DESC , o_entry_d limit 100"
         );
 	
 		protected SQLStmt get_query(DatabaseType dbType) {
 	    return query_stmt;
 	}
+	public int get_query_index() { return 2;}
 }

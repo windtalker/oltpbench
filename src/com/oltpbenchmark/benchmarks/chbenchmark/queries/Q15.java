@@ -25,6 +25,7 @@ import java.sql.Statement;
 import java.sql.SQLException;
 
 public class Q15 extends GenericQuery {
+    public int get_query_index() { return 15;}
     public final SQLStmt query_stmt = new SQLStmt(
             "select su_suppkey, su_name, su_address, su_phone, total_revenue"
                     + " from supplier, (select mod((s_w_id * s_i_id),10000) as supplier_no, sum(ol_amount) as total_revenue from order_line,stock where ol_i_id = s_i_id and "

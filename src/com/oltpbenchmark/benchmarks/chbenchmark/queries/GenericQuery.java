@@ -64,7 +64,8 @@ public abstract class GenericQuery extends Procedure {
 	}
 	
 	protected abstract SQLStmt get_query(DatabaseType dbType);
-    
+    public abstract int get_query_index();
+
     public ResultSet run(Connection conn) throws SQLException {
 		
 		//initializing all prepared statements

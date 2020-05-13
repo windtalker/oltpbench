@@ -20,7 +20,8 @@ import com.oltpbenchmark.api.SQLStmt;
 import com.oltpbenchmark.types.DatabaseType;
 
 public class Q3 extends GenericQuery {
-	
+
+	public int get_query_index() { return 3;}
     public final SQLStmt query_stmt = new SQLStmt(
             "SELECT sum(ol_amount) AS revenue\n" +
 					"FROM bmsql_order_line\n" +

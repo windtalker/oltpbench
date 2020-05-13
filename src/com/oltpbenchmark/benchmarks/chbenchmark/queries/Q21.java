@@ -20,7 +20,8 @@ import com.oltpbenchmark.api.SQLStmt;
 import com.oltpbenchmark.types.DatabaseType;
 
 public class Q21 extends GenericQuery {
-	
+
+	public int get_query_index() { return 21;}
     public final SQLStmt query_stmt = new SQLStmt(
               "SELECT su_name, "
             +        "count(*) AS numwait "

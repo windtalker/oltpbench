@@ -20,7 +20,8 @@ import com.oltpbenchmark.api.SQLStmt;
 import com.oltpbenchmark.types.DatabaseType;
 
 public class Q12 extends GenericQuery {
-	
+
+	public int get_query_index() { return 12;}
     public final SQLStmt query_stmt = new SQLStmt(
               "SELECT o_ol_cnt, "
             +        "sum(CASE WHEN o_carrier_id = 1 "

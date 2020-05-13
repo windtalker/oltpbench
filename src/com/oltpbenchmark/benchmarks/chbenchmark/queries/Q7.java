@@ -20,18 +20,36 @@ import com.oltpbenchmark.api.SQLStmt;
 import com.oltpbenchmark.types.DatabaseType;
 
 public class Q7 extends GenericQuery {
-	
+
+	public int get_query_index() { return 7;}
     public final SQLStmt query_stmt = new SQLStmt(
-            "SELECT SUM(ol_amount) / 2.0 AS avg_yearly\n" +
-					"FROM bmsql_order_line,\n" +
-					"(SELECT i_id, AVG (ol_quantity) AS a\n" +
-					"FROM bmsql_item,\n" +
-					"bmsql_order_line\n" +
-					"WHERE i_data LIKE '%b'\n" +
-					"AND ol_i_id = i_id\n" +
-					"GROUP BY i_id) t\n" +
-					"WHERE ol_i_id = t.i_id\n" +
-					"AND ol_quantity < t.a"
+            "SELECT /*+ tidb_bcj(bmsql_order_line,bmsql_oorder,bmsql_customer) */ c_last,\n" +
+					"c_id,\n" +
+					"o_id,\n" +
+					"o_entry_d,\n" +
+					"o_ol_cnt,\n" +
+					"sum(ol_amount) AS amount_sum\n" +
+					"FROM\n" +
+					"bmsql_order_line,\n" +
+					"bmsql_oorder,\n" +
+					"bmsql_customer\n" +
+					"WHERE c_id = o_c_id\n" +
+					"AND c_w_id = o_w_id\n" +
+					"AND c_d_id = o_d_id\n" +
+					"AND ol_w_id = o_w_id\n" +
+					"AND ol_d_id = o_d_id\n" +
+					"AND ol_o_id = o_id\n" +
+					"AND c_state LIKE 'A%'\n" +
+					"AND o_entry_d > timestamp'2020-05-12 07:00:00'\n" +
+					"GROUP BY o_id,\n" +
+					"o_w_id,\n" +
+					"o_d_id,\n" +
+					"c_id,\n" +
+					"c_last,\n" +
+					"o_entry_d,\n" +
+					"o_ol_cnt HAVING sum(ol_amount) > 200\n" +
+					"ORDER BY amount_sum DESC, o_entry_d\n" +
+					"limit 100"
         );
 
 	public final SQLStmt tidb_query_stmt = new SQLStmt(

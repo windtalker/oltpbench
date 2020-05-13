@@ -20,7 +20,8 @@ import com.oltpbenchmark.api.SQLStmt;
 import com.oltpbenchmark.types.DatabaseType;
 
 public class Q13 extends GenericQuery {
-	
+
+	public int get_query_index() { return 13;}
     public final SQLStmt query_stmt = new SQLStmt(
               "SELECT c_count, "
             +        "count(*) AS custdist "

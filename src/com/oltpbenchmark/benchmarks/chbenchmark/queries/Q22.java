@@ -20,7 +20,8 @@ import com.oltpbenchmark.api.SQLStmt;
 import com.oltpbenchmark.types.DatabaseType;
 
 public class Q22 extends GenericQuery {
-	
+
+	public int get_query_index() { return 22;}
     public final SQLStmt query_stmt = new SQLStmt(
               "SELECT substring(c_state from 1 for 1) AS country, "
             + "count(*) AS numcust, "

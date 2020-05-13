@@ -20,7 +20,8 @@ import com.oltpbenchmark.api.SQLStmt;
 import com.oltpbenchmark.types.DatabaseType;
 
 public class Q16 extends GenericQuery {
-	
+
+	public int get_query_index() { return 16;}
     public final SQLStmt query_stmt = new SQLStmt(
               "SELECT i_name, "
             +        "substring(i_data from  1 for 3) AS brand, "

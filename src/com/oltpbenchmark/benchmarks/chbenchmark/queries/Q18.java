@@ -20,7 +20,8 @@ import com.oltpbenchmark.api.SQLStmt;
 import com.oltpbenchmark.types.DatabaseType;
 
 public class Q18 extends GenericQuery {
-	
+
+	public int get_query_index() { return 18;}
     public final SQLStmt query_stmt = new SQLStmt(
               "SELECT c_last, "
             +        "c_id, "

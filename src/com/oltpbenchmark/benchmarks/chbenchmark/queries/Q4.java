@@ -20,16 +20,18 @@ import com.oltpbenchmark.api.SQLStmt;
 import com.oltpbenchmark.types.DatabaseType;
 
 public class Q4 extends GenericQuery {
-	
+
+	public int get_query_index() { return 4;}
     public final SQLStmt query_stmt = new SQLStmt(
-            "SELECT c_id,\n" +
+            "SELECT /*+ tidb_bcj(bmsql_customer,bmsql_oorder,bmsql_order_line) */ c_id,\n" +
 					"c_last,\n" +
 					"sum(ol_amount) AS revenue,\n" +
 					"c_city,\n" +
 					"c_phone\n" +
-					"FROM bmsql_customer,\n" +
+					"FROM\n" +
+					"bmsql_order_line,\n" +
 					"bmsql_oorder,\n" +
-					"bmsql_order_line\n" +
+					"bmsql_customer\n" +
 					"WHERE c_id = o_c_id\n" +
 					"AND c_w_id = o_w_id\n" +
 					"AND c_d_id = o_d_id\n" +
@@ -37,7 +39,7 @@ public class Q4 extends GenericQuery {
 					"AND ol_d_id = o_d_id\n" +
 					"AND ol_o_id = o_id\n" +
 					"AND o_entry_d >= timestamp'2020-05-12 07:00:00'\n" +
-					"AND o_entry_d <= ol_delivery_d\n" +
+					"AND o_entry_d = ol_delivery_d\n" +
 					"AND c_state LIKE 'A%'\n" +
 					"GROUP BY c_id,\n" +
 					"c_last,\n" +

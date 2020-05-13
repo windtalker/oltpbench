@@ -20,7 +20,8 @@ import com.oltpbenchmark.api.SQLStmt;
 import com.oltpbenchmark.types.DatabaseType;
 
 public class Q20 extends GenericQuery {
-	
+
+	public int get_query_index() { return 20;}
     public final SQLStmt query_stmt = new SQLStmt(
               "SELECT su_name, "
             +        "su_address "

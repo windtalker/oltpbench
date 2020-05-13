@@ -22,7 +22,7 @@
 
 	<!-- Workload-specific number of terminals -->
 	<terminals bench="chbenchmark">1</terminals> 
-	<terminals bench="tpcc">10</terminals> 
+	<terminals bench="tpcc">1</terminals> 
 
 	<works>
  
@@ -44,7 +44,7 @@
             <serial bench="tpcc">false</serial>
 
 			<!-- Must specify transaction weights for each workload -->
-			<weights bench="chbenchmark">10, 10, 10, 10, 10, 10, 10, 30</weights>
+			<weights bench="chbenchmark">10, 10, 10, 10, 10, 10, 40</weights>
 			<weights bench="tpcc">45,43,4,4,4</weights>
 		</work>
 
@@ -93,9 +93,6 @@
 		</transactiontype>
 		<transactiontype>
 			<name>Q7</name>
-		</transactiontype>
-		<transactiontype>
-			<name>Q8</name>
 		</transactiontype>
 	</transactiontypes>
 

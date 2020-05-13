@@ -52,4 +52,5 @@ public class Q1 extends GenericQuery {
 			return tidb_query_stmt;
 	    return query_stmt;
 	}
+	public int get_query_index() { return 1;}
 }
