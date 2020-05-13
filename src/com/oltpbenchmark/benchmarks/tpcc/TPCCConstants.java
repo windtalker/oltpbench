@@ -17,13 +17,13 @@
 package com.oltpbenchmark.benchmarks.tpcc;
 
 public abstract class TPCCConstants {
-    public static final String TABLENAME_DISTRICT = "DISTRICT";
-    public static final String TABLENAME_WAREHOUSE = "WAREHOUSE";
-    public static final String TABLENAME_ITEM = "ITEM";
-    public static final String TABLENAME_STOCK = "STOCK";
-    public static final String TABLENAME_CUSTOMER = "CUSTOMER";
-    public static final String TABLENAME_HISTORY = "HISTORY";
-    public static final String TABLENAME_OPENORDER = "OORDER";
-    public static final String TABLENAME_ORDERLINE = "ORDER_LINE";
-    public static final String TABLENAME_NEWORDER = "NEW_ORDER";
+    public static final String TABLENAME_DISTRICT = "bmsql_DISTRICT";
+    public static final String TABLENAME_WAREHOUSE = "bmsql_WAREHOUSE";
+    public static final String TABLENAME_ITEM = "bmsql_ITEM";
+    public static final String TABLENAME_STOCK = "bmsql_STOCK";
+    public static final String TABLENAME_CUSTOMER = "bmsql_CUSTOMER";
+    public static final String TABLENAME_HISTORY = "bmsql_HISTORY";
+    public static final String TABLENAME_OPENORDER = "bmsql_OORDER";
+    public static final String TABLENAME_ORDERLINE = "bmsql_ORDER_LINE";
+    public static final String TABLENAME_NEWORDER = "bmsql_NEW_ORDER";
 }
