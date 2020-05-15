@@ -25,8 +25,8 @@ public class Q3 extends GenericQuery {
     public final SQLStmt query_stmt = new SQLStmt(
             "SELECT sum(ol_amount) AS revenue\n" +
 					"FROM bmsql_order_line\n" +
-					"WHERE ol_delivery_d >= timestamp'2020-05-12 05:41:41'\n" +
-					"AND ol_delivery_d < timestamp'2020-05-14 00:00:00'\n" +
+					"WHERE ol_delivery_d >= timestamp'2020-05-14 10:41:41'\n" +
+					"AND ol_delivery_d < timestamp'2020-05-16 00:00:00'\n" +
 					"AND ol_quantity BETWEEN 1 AND 100000"
         );
 

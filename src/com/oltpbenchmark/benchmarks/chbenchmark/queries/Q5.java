@@ -34,7 +34,7 @@ public class Q5 extends GenericQuery {
 					"AND ol_d_id = o_d_id\n" +
 					"AND ol_o_id = o_id\n" +
 					"AND o_entry_d = ol_delivery_d\n" +
-					"AND ol_delivery_d < timestamp'2020-05-12 04:00:00'\n" +
+					"AND ol_delivery_d < timestamp'2020-05-14 07:50:44'\n" +
 					"GROUP BY o_ol_cnt\n" +
 					"ORDER BY o_ol_cnt limit 100"
         );

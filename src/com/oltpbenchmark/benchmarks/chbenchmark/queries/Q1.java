@@ -29,7 +29,7 @@ public class Q1 extends GenericQuery {
             +        "avg(ol_amount) AS avg_amount, "
             +        "count(*) AS count_order "
             + "FROM bmsql_order_line "
-            + "WHERE ol_delivery_d > timestamp'2020-05-12 05:41:41'"
+            + "WHERE ol_delivery_d > timestamp'2020-05-14 10:41:41'"
             + "GROUP BY ol_number "
             + "ORDER BY ol_number"
         );

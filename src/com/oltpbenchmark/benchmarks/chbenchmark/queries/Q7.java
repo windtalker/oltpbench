@@ -40,7 +40,7 @@ public class Q7 extends GenericQuery {
 					"AND ol_d_id = o_d_id\n" +
 					"AND ol_o_id = o_id\n" +
 					"AND c_state LIKE 'A%'\n" +
-					"AND o_entry_d > timestamp'2020-05-12 07:00:00'\n" +
+					"AND o_entry_d > timestamp'2020-05-14 13:00:40'\n" +
 					"GROUP BY o_id,\n" +
 					"o_w_id,\n" +
 					"o_d_id,\n" +

@@ -27,8 +27,8 @@ public class Q6 extends GenericQuery {
 					"FROM bmsql_order_line,\n" +
 					"bmsql_item\n" +
 					"WHERE ol_i_id = i_id\n" +
-					"AND ol_delivery_d >= timestamp'2020-05-12 05:41:41'\n" +
-					"AND ol_delivery_d < timestamp'2020-05-14 00:00:00'"
+					"AND ol_delivery_d >= timestamp'2020-05-14 10:41:41'\n" +
+					"AND ol_delivery_d < timestamp'2020-05-16 00:00:00'"
         );
 
 	public final SQLStmt tidb_query_stmt = new SQLStmt(

@@ -42,7 +42,7 @@ public class Q2 extends GenericQuery {
 					"AND ol_w_id = o_w_id\n" +
 					"AND ol_d_id = o_d_id\n" +
 					"AND ol_o_id = o_id\n" +
-					"AND o_entry_d > timestamp'2020-05-12 07:00:00'\n" +
+					"AND o_entry_d > timestamp'2020-05-14 13:00:40'\n" +
 					"GROUP BY ol_o_id,\n" +
 					"ol_w_id,\n" +
 					"ol_d_id,\n" +
