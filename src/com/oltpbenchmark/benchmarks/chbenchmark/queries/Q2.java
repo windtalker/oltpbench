@@ -22,7 +22,7 @@ import com.oltpbenchmark.types.DatabaseType;
 public class Q2 extends GenericQuery {
 	
     public final SQLStmt query_stmt = new SQLStmt(
-            "SELECT /*+ tidb_bcj(bmsql_customer,bmsql_new_order,bmsql_oorder,bmsql_order_line) */ ol_o_id,\n" +
+            "SELECT ol_o_id,\n" +
 					"ol_w_id,\n" +
 					"ol_d_id,\n" +
 					"sum(ol_amount) AS revenue,\n" +

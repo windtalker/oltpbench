@@ -23,7 +23,7 @@ public class Q7 extends GenericQuery {
 
 	public int get_query_index() { return 7;}
     public final SQLStmt query_stmt = new SQLStmt(
-            "SELECT /*+ tidb_bcj(bmsql_order_line,bmsql_oorder,bmsql_customer) */ c_last,\n" +
+            "SELECT c_last,\n" +
 					"c_id,\n" +
 					"o_id,\n" +
 					"o_entry_d,\n" +
